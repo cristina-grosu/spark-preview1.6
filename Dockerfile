@@ -181,16 +181,13 @@ FROM mcristinagrosu/hdfs-preview
 ##RUN sed s/HOSTNAME/$HOSTNAME/ /opt/hadoop/etc/hadoop/yarn-site.xml.template > /opt/hadoop/etc/hadoop/yarn-site.xml
 
 ##ADD slaves /opt/hadoop/etc/hadoop
-RUN cp /opt/hadoop/etc/hadoop/core-site.xml.template /opt/spark-2.0.0-bin-hadoop2.7/conf
-RUN cp /opt/hadoop/etc/hadoop/yarn-site.xml.template /opt/spark-2.0.0-bin-hadoop2.7/conf
-
 ADD entrypoint.sh /opt/entrypoint.sh
 RUN chmod 777 /opt/entrypoint.sh
 
 # Install Spark 1.6.0
-RUN cd /opt && wget http://d3kbcqa49mib13.cloudfront.net/spark-2.0.0-bin-hadoop2.7.tgz
-RUN tar xzvf /opt/spark-2.0.0-bin-hadoop2.7.tgz
-RUN rm  /opt/spark-2.0.0-bin-hadoop2.7.tgz
+RUN cd /opt && wget http://d3kbcqa49mib13.cloudfront.net/spark-1.6.2-bin-hadoop2.6.tgz
+RUN tar xzvf /opt/spark-1.6.2-bin-hadoop2.6.tgz
+RUN rm  /opt/spark-1.6.2-bin-hadoop2.6.tgz
 
 
 #Install Anaconda 3.14.1
@@ -230,7 +227,7 @@ RUN rm  /opt/spark-2.0.0-bin-hadoop2.7.tgz
 ###    apt-get clean
  
 # Spark and Mesos pointers
-ENV SPARK_HOME /opt/spark-2.0.0-bin-hadoop2.7
+ENV SPARK_HOME /opt/spark-1.6.2-bin-hadoop2.6
 ENV R_LIBS_USER $SPARK_HOME/R/lib
 ENV PYTHONPATH $SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.8.2.1-src.zip
 ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M --driver-java-options=-Dlog4j.logLevel=info
@@ -291,9 +288,12 @@ ENV SPARK_OPTS --driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M -
 
 ###EXPOSE 22 7077 8020 8030 8031 8032 8033 8040 8042 8080 8088 8888 9200 9300 10000 50010 50020 50060 50070 50075 50090
 
-RUN mv  spark-2.0.0-bin-hadoop2.7 /opt/
+RUN mv  spark-1.6.2-bin-hadoop2.6 /opt/
 
-ADD spark-defaults.conf /opt/spark-2.0.0-bin-hadoop2.7/conf/spark-defaults.conf.template
-ADD spark-env.sh /opt/spark-2.0.0-bin-hadoop2.7/conf/spark-env.sh
+ADD spark-defaults.conf /opt/spark-1.6.2-bin-hadoop2.6/conf/spark-defaults.conf.template
+ADD spark-env.sh /opt/spark-1.6.2-bin-hadoop2.6/conf/spark-env.sh
+
+RUN cp /opt/hadoop/etc/hadoop/core-site.xml.template /opt/sspark-1.6.2-bin-hadoop2.6/conf
+RUN cp /opt/hadoop/etc/hadoop/yarn-site.xml.template /opt/spark-1.6.2-bin-hadoop2.6/conf
 
 ENTRYPOINT ["/opt/entrypoint.sh"]
