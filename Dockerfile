@@ -293,7 +293,7 @@ RUN mv  spark-1.6.2-bin-hadoop2.6 /opt/
 ADD spark-defaults.conf /opt/spark-1.6.2-bin-hadoop2.6/conf/spark-defaults.conf.template
 ADD spark-env.sh /opt/spark-1.6.2-bin-hadoop2.6/conf/spark-env.sh
 
-RUN cp /opt/hadoop/etc/hadoop/core-site.xml.template /opt/sspark-1.6.2-bin-hadoop2.6/conf
+RUN cp /opt/hadoop/etc/hadoop/core-site.xml.template /opt/spark-1.6.2-bin-hadoop2.6/conf
 RUN cp /opt/hadoop/etc/hadoop/yarn-site.xml.template /opt/spark-1.6.2-bin-hadoop2.6/conf
 
 ENTRYPOINT ["/opt/entrypoint.sh"]
