@@ -1,10 +1,10 @@
 #!/bin/bash
 
-SPARK_HOME="/opt/spark-2.0.0-bin-hadoop2.7"
+SPARK_HOME="/opt/spark-1.6.2-bin-hadoop2.6"
 #HADOOP_HOME="opt/hadoop"
 #HADOOP_SBIN_DIR="opt/hadoop/sbin"
-HADOOP_CONF_DIR="/opt/spark-2.0.0-bin-hadoop2.7/conf"
-YARN_CONF_DIR="/opt/spark-2.0.0-bin-hadoop2.7/conf"
+HADOOP_CONF_DIR="/opt/spark-1.6.2-bin-hadoop2.6/conf"
+YARN_CONF_DIR="/opt/spark-1.6.2-bin-hadoop2.6/conf"
 
 echo Using SPARK_HOME=$SPARK_HOME
 
@@ -42,9 +42,9 @@ if [ "$HOSTNAME" = "" ]; then
   HOSTNAME=`hostname -f`
 fi
 
-sed "s/HOSTNAME_MASTER/$SPARK_MASTER_HOSTNAME/" /opt/spark-2.0.0-bin-hadoop2.7/conf/spark-defaults.conf.template > /opt/spark-2.0.0-bin-hadoop2.7/conf/spark-defaults.conf
-sed "s/HOSTNAME/$SPARK_MASTER_HOSTNAME/" /opt/spark-2.0.0-bin-hadoop2.7/conf/core-site.xml.template > /opt/spark-2.0.0-bin-hadoop2.7/conf/core-site.xml
-sed "s/HOSTNAME/$HOSTNAME_MASTER/" /opt/spark-2.0.0-bin-hadoop2.7/conf/yarn-site.xml.template > /opt/spark-2.0.0-bin-hadoop2.7/conf/yarn-site.xml	
+sed "s/HOSTNAME_MASTER/$SPARK_MASTER_HOSTNAME/" /opt/spark-1.6.2-bin-hadoop2.6/conf/spark-defaults.conf.template > /opt/spark-1.6.2-bin-hadoop2.6/conf/spark-defaults.conf
+sed "s/HOSTNAME/$SPARK_MASTER_HOSTNAME/" /opt/spark-1.6.2-bin-hadoop2.6/conf/core-site.xml.template > /opt/spark-1.6.2-bin-hadoop2.6/conf/core-site.xml
+sed "s/HOSTNAME/$HOSTNAME_MASTER/" /opt/spark-1.6.2-bin-hadoop2.6/conf/yarn-site.xml.template > /opt/spark-1.6.2-bin-hadoop2.6/conf/yarn-site.xml	
 
 SPARK_MASTER_URL="spark://$SPARK_MASTER_HOSTNAME:$SPARK_MASTER_PORT"
 echo "Using SPARK_MASTER_URL=$SPARK_MASTER_URL"
